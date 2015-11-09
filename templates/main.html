@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse"
+						data-target="#dk-nav-btns"
+						aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+					</button>
+					<a class="navbar-brand" href="/">Drink it!</a>
+				</div>
+				<div class="collapse navbar-collapse" id="dk-nav-btns">
+	      <ul class="nav navbar-nav">
+	        <li class="active">
+	        	<a href="/">Home <span class="sr-only">(current)</span></a>
+	        </li>
+	        <li>
+	        	<a href="/catalog.json">JSON API</a>
+	        </li>
+	      </ul>
+	      {% if user %}
+	      	<span class="pull-right">
+	      		{{ user.name }} - <a href="/logout">Logout</a>
+	      	</span>
+	      {% else %}
+	      	<a href="/login" class="btn btn-primary pull-right">Login</a>
+	      {% endif %}
+			</div>
+	 	</nav>
+		<div class="container">
+		  {% with messages = get_flashed_messages() %}
+		    {% if messages %}
+		      {% for message in messages %}
+		        <div class="alert alert-success">{{ message }}</div>
+		      {% endfor %}
+		    {% endif %}
+		  {% endwith %}
+		  <div class="row">
+		  	<div class="col-xs-12 col-sm-3">
+		  		{% include 'category/list.html' %}
+		  	</div>
+		  	<div class="col-xs-12 col-sm-9">
+		  		{% block content %}
+					{% endblock %}
+		  	</div>
+		  </div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		{% block scripts %}
+		{% endblock %}
+	</body>
+</html>

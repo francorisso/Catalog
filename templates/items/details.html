@@ -1,0 +1,6 @@
+{% extends "main.html" %}
+{% block content %}
+  <h1>{{ item.name }}</h1>
+  <a href="/category/{{ item.category.id }}">{{ item.category.name }}</a>
+  <p>{{item.description}}</p>
+{% endblock %}

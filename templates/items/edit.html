@@ -1,0 +1,36 @@
+{% extends "main.html" %}
+{% block content %}
+  <h2>Edit Item {{item.name}}</h2>
+  <div class="row">
+    <form action="/item/edit/{{item.id}}" method="post" enctype="multipart/form-data" class="col-xs-8">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" name="name" class="form-control" value="{{item.name}}" />
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category_id" class="form-control" >
+          {% for category in categories %}
+            <option value="{{category.id}}"
+              {% if category.id==item.category_id %}selected{% endif %}>
+              {{category.name}}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" class="form-control" rows="7">{{item.description}}</textarea>
+      </div>
+      <div class="form-group">
+        <label>Image</label>
+        <input type="file" name="image" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <a href="{{ url_for('homepage') }}" class="btn btn-danger">Cancel</a>
+        <button class="btn btn-primary">Update</button>
+      </div>
+  </div>
+
+  </form>
+{% endblock %}
